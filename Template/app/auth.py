@@ -226,11 +226,11 @@ def forgot():
                 number = hex(random.getrandbits(512))[2:]
                 
                 db.execute(
-                    'UPDATE user SET  where id = ? ',
+                    'UPDATE forgotlink SET  state= ? where userid = ? ',
                     (utils.F_INACTIVE, user['id'])
                 )
                 db.execute(
-                    'INSERT INTO user (id) VALUES (?) ',
+                    'INSERT INTO forgotlink (userid, challenge, state) VALUES (?, ?, ?) ',
                     (user['id'], number, utils.F_ACTIVE)
                 )
                 db.commit()
